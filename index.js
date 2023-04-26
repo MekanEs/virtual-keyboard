@@ -28,9 +28,10 @@ body.addEventListener('keydown', (event) => {
     event.key === 'ArrowDown' ||
     event.key === 'ArrowUp'
   ) {
-    /* empty */
+    document.querySelector(`.${event.code}`).classList.add('active-key');
   } else {
     event.preventDefault();
+
     if (event.key !== 'CapsLock') {
       document.querySelector(`.${event.code}`).classList.add('active-key');
     }
@@ -70,7 +71,6 @@ body.addEventListener('keydown', (event) => {
         document.querySelector(`.${event.code}`).classList.remove('active-key');
         isCapsed = setCaps(!isCapsed);
 
-        console.log(isCapsed);
         CapsIsPressed = true;
       }
     }
@@ -136,6 +136,9 @@ body.addEventListener('keyup', (event) => {
   if (event.key === 'CapsLock') {
     CapsIsPressed = false;
   }
+  if (event.key === 'Control') {
+    controlIsPressed = false;
+  }
 });
 const keys = document.querySelectorAll('.key');
 
@@ -153,7 +156,6 @@ keys.forEach((element) => {
     body.dispatchEvent(newEvent);
   });
   element.addEventListener('mousedown', (e) => {
-    console.log(e);
     const newEvent = new KeyboardEvent('keydown', {
       key: e.currentTarget.innerText,
       code: e.currentTarget.classList[0],
@@ -162,7 +164,6 @@ keys.forEach((element) => {
   });
 
   element.addEventListener('mouseup', (e) => {
-    console.log(e);
     const newEvent = new KeyboardEvent('keyup', {
       key: e.currentTarget.innerText,
       code: e.currentTarget.classList[0],

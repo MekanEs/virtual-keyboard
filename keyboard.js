@@ -392,12 +392,12 @@ keys1[2] = [
   {
     className: 'CapsLock',
     eng: {
-      caseDown: 'CapsLock',
-      caseUp: 'CapsLock',
+      caseDown: 'CapsLk',
+      caseUp: 'CapsLk',
     },
     rus: {
-      caseDown: 'CapsLock',
-      caseUp: 'CapsLock',
+      caseDown: 'CapsLk',
+      caseUp: 'CapsLk',
     },
   },
   {

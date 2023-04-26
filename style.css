@@ -63,20 +63,22 @@ background: linear-gradient(90deg, rgba(228,228,228,0.5) 15%, rgba(198,198,198,0
 }
 .keyboard{
     width: 820px;
-    background: #0b1d23;
+    background: #4e4e4e;
     display: flex;
     flex-direction: column;
     row-gap: 10px;
     border-radius: 10px;
-    padding: 5px;
+    padding: 8px;
 margin: 10px;
 }
 .row{
   display: flex;
   flex-wrap: nowrap;
-  column-gap: 9px;
+  column-gap: 3px;
   justify-content: space-between;
   padding: 5px;
+  height: 50px;
+  align-items: center;
 }
 .key{
   border-radius: 3px;
@@ -87,23 +89,34 @@ margin: 10px;
   align-items: center;
   justify-content: center;
   min-width: 40px;
-  padding: 8px 14px 8px 14px;
-  transition: background 0.4s ease,
-  border-radius 0.4s ease;
+ min-height: 40px;
+ padding: 0 5px;
+  transition: all 0.2s ease;
+
   cursor: pointer;
+  -webkit-box-shadow: 16px 10px 13px -1px rgba(14, 24, 32, 0.6);
+-moz-box-shadow: 16px 10px 13px -1px rgba(18, 32, 43, 0.6);
+box-shadow: 16px 10px 13px -1px rgba(15, 26, 34, 0.6);
 }
 .hov{
   background-color: rgb(153, 153, 153);
   cursor: pointer;
 }
 .active-key{
-  background-color: aqua;
-  border-radius: 10px;
+margin-top: 5px;
+
+background-color: rgb(212, 209, 209);
+color: #10252c;
+
   filter: saturate(1);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none
 }
 .Space{
-  width: 180px;
+  width: 240px;
 }
+
 .hidden{
   display: none;
 }
@@ -116,4 +129,28 @@ padding-top: 20px;
   font-size: 32px;
 
   text-align: center;
+}
+
+.ShiftLeft{
+  width: 80px;
+  padding: 0 10px;
+}
+.ShiftRight{
+  width: 120px;
+  padding: 0 10px;
+}
+.ControlLeft{
+  width: 50px;
+}
+.ControlRight{
+  width: 50px;
+}
+.AltLeft{
+  width: 50px;
+}
+.AltRight{
+  width: 50px;
+}
+.MetaLeft{
+  width: 60px;
 }
