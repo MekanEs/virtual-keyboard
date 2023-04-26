@@ -23,10 +23,10 @@ activateCase();
 activeLang();
 body.addEventListener('keydown', (event) => {
   if (
-    event.key === 'ArrowLeft' ||
-    event.key === 'ArrowRight' ||
-    event.key === 'ArrowDown' ||
-    event.key === 'ArrowUp'
+    event.key === 'ArrowLeft'
+    || event.key === 'ArrowRight'
+    || event.key === 'ArrowDown'
+    || event.key === 'ArrowUp'
   ) {
     document.querySelector(`.${event.code}`).classList.add('active-key');
   } else {
@@ -156,10 +156,19 @@ keys.forEach((element) => {
     body.dispatchEvent(newEvent);
   });
   element.addEventListener('mousedown', (e) => {
-    const newEvent = new KeyboardEvent('keydown', {
-      key: e.currentTarget.innerText,
-      code: e.currentTarget.classList[0],
-    });
+    let newEvent = 0;
+    if (e.currentTarget.classList[0] === 'Space') {
+      newEvent = new KeyboardEvent('keydown', {
+        key: ' ',
+        code: 'Space',
+      });
+    } else {
+      newEvent = new KeyboardEvent('keydown', {
+        key: e.currentTarget.innerText,
+        code: e.currentTarget.classList[0],
+      });
+    }
+
     body.dispatchEvent(newEvent);
   });
 
