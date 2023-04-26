@@ -35,7 +35,10 @@ outline: none;
 background: rgb(228,228,228);
 background: linear-gradient(90deg, rgba(228,228,228,0.5) 15%, rgba(198,198,198,0.5) 51%, rgba(186,186,186,0.5) 96%);
 }
-
+.input::selection{
+ color: rgb(255, 255, 255);
+ background-color: #194250;
+}
 .input::-webkit-scrollbar {
     width: 8px;
 
@@ -56,13 +59,17 @@ background: linear-gradient(90deg, rgba(228,228,228,0.5) 15%, rgba(198,198,198,0
   }
   textarea {
     cursor: auto;
+
 }
 .keyboard{
-    width: 800px;
+    width: 820px;
     background: #0b1d23;
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    border-radius: 10px;
+    padding: 5px;
+
 }
 .row{
   display: flex;
@@ -83,9 +90,10 @@ background: linear-gradient(90deg, rgba(228,228,228,0.5) 15%, rgba(198,198,198,0
   padding: 8px 14px 8px 14px;
   transition: background 0.4s ease,
   border-radius 0.4s ease;
+  cursor: pointer;
 }
-.key:hover{
-  background-color: aqua;
+.hov{
+  background-color: rgb(153, 153, 153);
   cursor: pointer;
 }
 .active-key{
@@ -95,4 +103,11 @@ background: linear-gradient(90deg, rgba(228,228,228,0.5) 15%, rgba(198,198,198,0
 }
 .Space{
   width: 180px;
+}
+.hidden{
+  display: none;
+}
+.alt-symbol{
+  right: 0;
+  font-size: 10px;
 }
