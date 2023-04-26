@@ -17,14 +17,21 @@ const activateCase = (
       el.childNodes.forEach((elem) => {
         elem.classList.add('hidden');
       });
+
       el.querySelector(`.${secondCase}`)?.classList.remove('hidden');
     }
   });
 };
 export const activeLang = (language = getState().keyboardLanguage) => {
-  console.log('works');
+  const rus = document.querySelectorAll('.rus');
+  rus.forEach((el) => {
+    el.classList.add('hidden');
+  });
+  const eng = document.querySelectorAll('.eng');
+  eng.forEach((el) => {
+    el.classList.add('hidden');
+  });
   const langKeys = document.querySelectorAll(`.${language}`);
-  console.log(langKeys);
   langKeys.forEach((el) => {
     el.classList.remove('hidden');
   });

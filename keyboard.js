@@ -1,3 +1,5 @@
+import getState from './state.js';
+
 const keys1 = [];
 keys1[0] = [
   {
@@ -799,7 +801,7 @@ keys1[4] = [
 ];
 
 class Keyboard {
-  constructor(lang, myCase, rows = keys1) {
+  constructor(lang, myCase = getState().keyBoardCase, rows = keys1) {
     this.rows = [...rows];
     this.lang = lang;
     this.case = myCase;
@@ -817,11 +819,7 @@ class Keyboard {
         keyboard2 += "<div class = 'eng'>";
         for (const key in currentRow[j].eng) {
           if (key === this.case) {
-            if (this.lang === 'eng') {
-              keyboard2 += `<div class = '${key}'>${currentRow[j].eng[key]}</div>`;
-            } else if (this.lang === 'rus') {
-              keyboard2 += `<div class = '${key} hidden'>${currentRow[j].eng[key]}</div>`;
-            }
+            keyboard2 += `<div class = '${key}'>${currentRow[j].eng[key]}</div>`;
           } else {
             keyboard2 += `<div class = '${key} hidden'>${currentRow[j].eng[key]}</div>`;
           }
@@ -831,11 +829,7 @@ class Keyboard {
         keyboard2 += "<div class = 'rus'>";
         for (const key in currentRow[j].rus) {
           if (key === this.case) {
-            if (this.lang === 'rus') {
-              keyboard2 += `<div class = '${key}'>${currentRow[j].rus[key]}</div>`;
-            } else if (this.lang === 'eng') {
-              keyboard2 += `<div class = '${key} hidden'>${currentRow[j].rus[key]}</div>`;
-            }
+            keyboard2 += `<div class = '${key}'>${currentRow[j].rus[key]}</div>`;
           } else {
             keyboard2 += `<div class = '${key} hidden'>${currentRow[j].rus[key]}</div>`;
           }

@@ -36,7 +36,7 @@ export const pressedBackspace = (textArea1, textValue) => {
   return NewTextarea;
 };
 
-/*if (e.key === 'Enter') {
+/* if (e.key === 'Enter') {
   const enter = '\n';
 
   textArea1.value = textValue.slice(0, start) + enter + textValue.slice(end);

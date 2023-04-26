@@ -8,10 +8,20 @@ import getState, { setCaps, setLanguage } from './state.js';
 const allowedSymbols = getSymbols();
 let textArea1 = insertTextArea();
 insertKeyboard();
+const body = document.querySelector('body');
+body.insertAdjacentHTML(
+  'beforeend',
+  `<div class='info'><div>Language switch combination: Ctrl + Alt</div>
+    <div>The keyboard was created in the Windows operating system</div></div>`,
+);
 let shiftIsPressed = false;
 let { isCapsed } = getState();
 let controlIsPressed = false;
-window.addEventListener('keydown', (event) => {
+let CapsIsPressed = false;
+
+activateCase();
+activeLang();
+body.addEventListener('keydown', (event) => {
   if (
     event.key === 'ArrowLeft' ||
     event.key === 'ArrowRight' ||
@@ -50,16 +60,18 @@ window.addEventListener('keydown', (event) => {
       textArea1.selectionEnd = start + 4;
     }
     if (event.key === 'CapsLock') {
-      if (!isCapsed) {
+      if (!isCapsed && !CapsIsPressed) {
         activateCase('caps');
         document.querySelector(`.${event.code}`).classList.add('active-key');
         isCapsed = setCaps(!isCapsed);
-        console.log(isCapsed);
-      } else {
+        CapsIsPressed = true;
+      } else if (isCapsed && !CapsIsPressed) {
         activateCase('caseDown');
         document.querySelector(`.${event.code}`).classList.remove('active-key');
         isCapsed = setCaps(!isCapsed);
+
         console.log(isCapsed);
+        CapsIsPressed = true;
       }
     }
     if (event.key === 'Shift') {
@@ -90,11 +102,24 @@ window.addEventListener('keydown', (event) => {
       }
 
       activeLang();
+      if (isCapsed) {
+        if (shiftIsPressed) {
+          activateCase('shiftCaps', 'caseDown');
+        } else {
+          activateCase('caps');
+        }
+      } else if (!isCapsed) {
+        if (shiftIsPressed) {
+          activateCase('caseUp', 'caseDown');
+        } else {
+          activateCase('caseDown');
+        }
+      }
     }
   }
 });
 
-window.addEventListener('keyup', (event) => {
+body.addEventListener('keyup', (event) => {
   event.preventDefault();
   if (event.key !== 'CapsLock') {
     document.querySelector(`.${event.code}`).classList.remove('active-key');
@@ -108,4 +133,40 @@ window.addEventListener('keyup', (event) => {
       activateCase('caseDown');
     }
   }
+  if (event.key === 'CapsLock') {
+    CapsIsPressed = false;
+  }
+});
+const keys = document.querySelectorAll('.key');
+
+keys.forEach((element) => {
+  element.addEventListener('mouseover', (e) => {
+    e.currentTarget.classList.add('hov');
+  });
+  element.addEventListener('mouseout', (e) => {
+    e.currentTarget.classList.remove('hov');
+
+    const newEvent = new KeyboardEvent('keyup', {
+      key: e.currentTarget.innerText,
+      code: e.currentTarget.classList[0],
+    });
+    body.dispatchEvent(newEvent);
+  });
+  element.addEventListener('mousedown', (e) => {
+    console.log(e);
+    const newEvent = new KeyboardEvent('keydown', {
+      key: e.currentTarget.innerText,
+      code: e.currentTarget.classList[0],
+    });
+    body.dispatchEvent(newEvent);
+  });
+
+  element.addEventListener('mouseup', (e) => {
+    console.log(e);
+    const newEvent = new KeyboardEvent('keyup', {
+      key: e.currentTarget.innerText,
+      code: e.currentTarget.classList[0],
+    });
+    body.dispatchEvent(newEvent);
+  });
 });
