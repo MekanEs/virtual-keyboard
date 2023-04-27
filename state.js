@@ -3,14 +3,14 @@ const localCase = localStorage.getItem('keyBoardCase');
 
 const state = {
   keyboardLanguage: localLang || 'eng',
-  keyBoardCase: localCase || 'caseDown',
+  keyBoardCase: localCase || "caseDown",
   isCapsed: false,
 };
 
 const syncLocalStorage = () => {
-  for (const key in state) {
-    localStorage.setItem(`${key}`, state[key]);
-  }
+  Object.entries(state).forEach((key) => {
+    localStorage.setItem(`${key[0]}`, key[1]);
+  });
 };
 const getState = () => state;
 

@@ -7,16 +7,10 @@
     "overrides": [
     ],
     "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+        "ecmaVersion": "latest"
     },
     "rules": {
-
-           "linebreak-style": 0,
-            "indent": [2],
-            "import/extensions":0,
-            "guard-for-in":0,
-            "no-restricted-syntax":0
+            "import/extensions":0
     }
 
 }
