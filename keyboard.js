@@ -392,12 +392,12 @@ keys1[2] = [
   {
     className: 'CapsLock',
     eng: {
-      caseDown: 'CapsLk',
-      caseUp: 'CapsLk',
+      caseDown: 'CapsLock',
+      caseUp: 'CapsLock',
     },
     rus: {
-      caseDown: 'CapsLk',
-      caseUp: 'CapsLk',
+      caseDown: 'CapsLock',
+      caseUp: 'CapsLock',
     },
   },
   {
@@ -545,11 +545,9 @@ keys1[3] = [
   {
     className: 'ShiftLeft',
     eng: {
-      caseDown: 'Shift',
       caseUp: 'Shift',
     },
     rus: {
-      caseDown: 'Shift',
       caseUp: 'Shift',
     },
   },
@@ -689,11 +687,9 @@ keys1[3] = [
   {
     className: 'ShiftRight',
     eng: {
-      caseDown: 'Shift',
       caseUp: 'Shift',
     },
     rus: {
-      caseDown: 'Shift',
       caseUp: 'Shift',
     },
   },
@@ -799,7 +795,6 @@ keys1[4] = [
     },
   },
 ];
-
 class Keyboard {
   constructor(lang, myCase = getState().keyBoardCase, rows = keys1) {
     this.rows = [...rows];
@@ -817,21 +812,23 @@ class Keyboard {
       for (let j = 0; j < currentRow.length; j += 1) {
         keyboard2 += `<div class =  "${currentRow[j].className} key">`;
         keyboard2 += "<div class = 'eng'>";
-        for (const key in currentRow[j].eng) {
-          if (key === this.case) {
-            keyboard2 += `<div class = '${key}'>${currentRow[j].eng[key]}</div>`;
+        const engEntries = Object.entries(currentRow[j].eng);
+        for (let iter = 0; iter < engEntries.length; iter += 1) {
+          if (engEntries[iter][0] === this.case) {
+            keyboard2 += `<span class = '${engEntries[iter][0]}'>${engEntries[iter][1]}</span>`;
           } else {
-            keyboard2 += `<div class = '${key} hidden'>${currentRow[j].eng[key]}</div>`;
+            keyboard2 += `<span class = '${engEntries[iter][0]} hidden'>${engEntries[iter][1]}</span>`;
           }
         }
         keyboard2 += '</div>';
 
         keyboard2 += "<div class = 'rus'>";
-        for (const key in currentRow[j].rus) {
-          if (key === this.case) {
-            keyboard2 += `<div class = '${key}'>${currentRow[j].rus[key]}</div>`;
+        const rusEntries = Object.entries(currentRow[j].rus);
+        for (let iter = 0; iter < engEntries.length; iter += 1) {
+          if (rusEntries[iter][0] === this.case) {
+            keyboard2 += `<span class = '${rusEntries[iter][0]}'>${rusEntries[iter][1]}</span>`;
           } else {
-            keyboard2 += `<div class = '${key} hidden'>${currentRow[j].rus[key]}</div>`;
+            keyboard2 += `<span class = '${rusEntries[iter][0]} hidden'>${rusEntries[iter][1]}</span>`;
           }
         }
         keyboard2 += '</div>';

@@ -23,16 +23,16 @@ activateCase();
 activeLang();
 body.addEventListener('keydown', (event) => {
   if (
-    event.key === 'ArrowLeft' ||
-    event.key === 'ArrowRight' ||
-    event.key === 'ArrowDown' ||
-    event.key === 'ArrowUp'
+    event.key === 'ArrowLeft'
+    || event.key === 'ArrowRight'
+    || event.key === 'ArrowDown'
+    || event.key === 'ArrowUp'
   ) {
     document.querySelector(`.${event.code}`).classList.add('active-key');
   } else {
     event.preventDefault();
 
-    if (event.key !== 'CapsLock') {
+    if (event.key !== 'CapsLock' && event.key !== 'Shift') {
       document.querySelector(`.${event.code}`).classList.add('active-key');
     }
     if (event.key === 'Delete') {
@@ -75,13 +75,12 @@ body.addEventListener('keydown', (event) => {
       }
     }
     if (event.key === 'Shift') {
-      shiftIsPressed = true;
-      if (isCapsed) {
-        activateCase('shiftCaps', 'caseDown');
-      } else {
-        activateCase('caseUp', 'caseDown');
+      if (!shiftIsPressed) {
+        shiftIsPressed = true;
+        document.querySelector(`.${event.code}`).classList.add('active-key');
       }
     }
+
     if (event.key === 'Enter') {
       const enter = '\n';
       const start = textArea1.selectionStart;
@@ -102,19 +101,19 @@ body.addEventListener('keydown', (event) => {
       }
 
       activeLang();
-      if (isCapsed) {
-        if (shiftIsPressed) {
-          activateCase('shiftCaps', 'caseDown');
-        } else {
-          activateCase('caps');
-        }
-      } else if (!isCapsed) {
-        if (shiftIsPressed) {
-          activateCase('caseUp', 'caseDown');
-        } else {
-          activateCase('caseDown');
-        }
-      }
+    }
+  }
+  if (isCapsed) {
+    if (shiftIsPressed) {
+      activateCase('caseUp', 'caseDown');
+    } else {
+      activateCase('caps');
+    }
+  } else if (!isCapsed) {
+    if (shiftIsPressed) {
+      activateCase('caseUp', 'caseDown');
+    } else {
+      activateCase('caseDown');
     }
   }
 });
@@ -140,9 +139,9 @@ body.addEventListener('keyup', (event) => {
     controlIsPressed = false;
   }
 });
-const keys = document.querySelectorAll('.key');
+const keys1 = document.querySelectorAll('.key');
 
-keys.forEach((element) => {
+keys1.forEach((element) => {
   element.addEventListener('mouseover', (e) => {
     e.currentTarget.classList.add('hov');
   });
@@ -156,16 +155,26 @@ keys.forEach((element) => {
     body.dispatchEvent(newEvent);
   });
   element.addEventListener('mousedown', (e) => {
-    const newEvent = new KeyboardEvent('keydown', {
-      key: e.currentTarget.innerText,
-      code: e.currentTarget.classList[0],
-    });
+    const target = e.currentTarget;
+    let newEvent = 0;
+    if (target.classList[0] === 'Space') {
+      newEvent = new KeyboardEvent('keydown', {
+        key: ' ',
+        code: 'Space',
+      });
+    } else {
+      newEvent = new KeyboardEvent('keydown', {
+        key: `${e.currentTarget.innerText}`,
+        code: e.currentTarget.classList[0],
+      });
+    }
+
     body.dispatchEvent(newEvent);
   });
 
   element.addEventListener('mouseup', (e) => {
     const newEvent = new KeyboardEvent('keyup', {
-      key: e.currentTarget.innerText,
+      key: e.target.innerText,
       code: e.currentTarget.classList[0],
     });
     body.dispatchEvent(newEvent);
